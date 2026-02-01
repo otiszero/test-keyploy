@@ -1,9 +1,5 @@
 import { ForgotPasswordForm } from '../components/auth';
 
-export const ForgotPasswordPage = () => (
-  <div style={{ padding: 40 }}>
-    <ForgotPasswordForm />
-  </div>
-);
+export const ForgotPasswordPage = () => <ForgotPasswordForm />;
 
 export default ForgotPasswordPage;

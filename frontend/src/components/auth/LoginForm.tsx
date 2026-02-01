@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
+import { AuthLayout } from './AuthLayout';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -25,19 +26,79 @@ export const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }}>
-      <h2>Đăng nhập</h2>
-      <div style={{ marginBottom: 16 }}>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ width: '100%', padding: 8 }} />
-      </div>
-      <div style={{ marginBottom: 16 }}>
-        <input type="password" placeholder="Mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ width: '100%', padding: 8 }} />
-      </div>
-      <button type="submit" disabled={loading} style={{ width: '100%', padding: 10 }}>{loading ? 'Đang xử lý...' : 'Đăng nhập'}</button>
-      <p style={{ marginTop: 16 }}>
-        <Link to="/forgot-password">Quên mật khẩu?</Link> | <Link to="/register">Đăng ký</Link>
-      </p>
-    </form>
+    <AuthLayout title="Chào mừng trở lại" subtitle="Đăng nhập để tiếp tục trò chuyện">
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="your@email.com"
+            required
+            autoComplete="email"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Mật khẩu</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Nhập mật khẩu"
+            required
+            autoComplete="current-password"
+          />
+        </div>
+        <button type="submit" disabled={loading} className="btn-submit">
+          {loading ? (
+            <>
+              <span className="spinner" />
+              Đang xử lý...
+            </>
+          ) : (
+            'Đăng nhập'
+          )}
+        </button>
+        <div className="auth-links">
+          <Link to="/forgot-password">Quên mật khẩu?</Link>
+          <span className="text-muted">|</span>
+          <Link to="/register">Tạo tài khoản mới</Link>
+        </div>
+      </form>
+      <style>{`
+        .auth-form {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-5);
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .btn-submit {
+          width: 100%;
+          padding: var(--space-4);
+          margin-top: var(--space-2);
+        }
+
+        .auth-links {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: var(--space-3);
+          font-size: var(--text-sm);
+        }
+
+        .auth-links .text-muted {
+          color: var(--border-primary);
+        }
+      `}</style>
+    </AuthLayout>
   );
 };
 

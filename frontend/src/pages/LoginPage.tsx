@@ -1,9 +1,5 @@
 import { LoginForm } from '../components/auth';
 
-export const LoginPage = () => (
-  <div style={{ padding: 40 }}>
-    <LoginForm />
-  </div>
-);
+export const LoginPage = () => <LoginForm />;
 
 export default LoginPage;
