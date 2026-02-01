@@ -1,0 +1,18 @@
+ignoredBuiltDependencies:
+  - bcrypt
+
+onlyBuiltDependencies:
+  - /
+  - '@'
+  - '@nestjs/core'
+  - a
+  - c
+  - e
+  - i
+  - l
+  - m
+  - n
+  - p
+  - r
+  - s
+  - t
