@@ -29,12 +29,18 @@ RUN pnpm prune --prod
 FROM node:20-alpine
 WORKDIR /app
 
+# Install OpenSSL for Prisma
+RUN apk add --no-cache openssl
+
 # Copy built files and dependencies
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/prisma ./prisma
 
+# Generate Prisma client in production
+RUN npx prisma@5.22.0 generate
+
 EXPOSE 5000
 
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main.js"]
+CMD ["sh", "-c", "npx prisma@5.22.0 migrate deploy && node dist/main.js"]
